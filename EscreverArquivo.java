@@ -53,7 +53,7 @@ public class EscreverArquivo {
             return;
         }
 
-        // O nome do arquivo será o ID do usuário. Convertemos o int ID para String.
+        // O nome do arquivo será o ID 
         String caminhoArquivo = diretorioDestino + File.separator + usuario.getId() + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {

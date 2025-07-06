@@ -34,7 +34,7 @@ public class EscreverArquivo {
             UsuarioMedico medico = (UsuarioMedico) usuario;
             diretorioDestino = MEDICOS_PASTA;
             conteudo.append("Especialidade: ").append(medico.getEspecialidade()).append("\n");
-            conteudo.append("Planos_de_Saúde_Atendidos: ");
+            conteudo.append("Planos_de_Saude_Atendidos: ");
             List<String> planos = medico.getPlanosSaudeAtendidos();
             if (planos != null && !planos.isEmpty()) {
                 conteudo.append(String.join(", ", planos));
@@ -53,7 +53,6 @@ public class EscreverArquivo {
             return;
         }
 
-        // O nome do arquivo será o ID 
         String caminhoArquivo = diretorioDestino + File.separator + usuario.getId() + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {

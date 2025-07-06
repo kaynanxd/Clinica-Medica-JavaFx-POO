@@ -85,12 +85,68 @@ public class LerArquivo {
         }
         return null;
     }
-        /*
+
+    public static UsuarioMedico buscarMedicoPorNome(String nome) {
+        File medicosDir = new File(MEDICOS_PASTA);
+        if (medicosDir.exists() && medicosDir.isDirectory()) {
+            File[] arquivosMedicos = medicosDir.listFiles((dir, name) -> name.endsWith(".txt"));
+            if (arquivosMedicos != null) {
+                for (File arquivo : arquivosMedicos) {
+                    Map<String, String> dados = lerCamposDoArquivo(arquivo.getAbsolutePath());
+                    if (dados != null && "Medico".equals(dados.get("Tipo")) && dados.get("Nome").equalsIgnoreCase(nome)) {
+                        // Reconstrua o objeto Medico e retorne
+                        try {
+                            String senha = dados.get("Senha");
+                            String especialidade = dados.get("Especialidade");
+                            String planosStr = dados.get("Planos_de_Saúde_Atendidos");
+                            List<String> planosSaude = (planosStr != null && !planosStr.equals("Nenhum")) ?
+                                    Arrays.asList(planosStr.split(",")).stream().map(String::trim).collect(Collectors.toList()) :
+                                    new ArrayList<>();
+                            UsuarioMedico medico = UsuarioFactory.criarMedico(senha, nome, especialidade, planosSaude);
+                            medico.setId(Integer.parseInt(dados.get("ID")));
+                            return medico;
+                        } catch (NumberFormatException e) {
+                            System.err.println("Erro ao converter ID do médico em: " + arquivo.getName());
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static UsuarioPaciente buscarPacientePorNome(String nome) {
+        // Lógica similar para pacientes
+        File pacientesDir = new File(PACIENTES_PASTA);
+        if (pacientesDir.exists() && pacientesDir.isDirectory()) {
+            File[] arquivosPacientes = pacientesDir.listFiles((dir, name) -> name.endsWith(".txt"));
+            if (arquivosPacientes != null) {
+                for (File arquivo : arquivosPacientes) {
+                    Map<String, String> dados = lerCamposDoArquivo(arquivo.getAbsolutePath());
+                    if (dados != null && "Paciente".equals(dados.get("Tipo")) && dados.get("Nome").equalsIgnoreCase(nome)) {
+                        try {
+                            String senha = dados.get("Senha");
+                            int idade = Integer.parseInt(dados.get("Idade"));
+                            String planoSaude = dados.get("Plano_de_Saúde");
+
+                            UsuarioPaciente paciente = UsuarioFactory.criarPaciente(senha, nome, idade, planoSaude);
+                            paciente.setId(Integer.parseInt(dados.get("ID")));
+                            return paciente;
+                        } catch (NumberFormatException e) {
+                            System.err.println("Erro ao converter idade ou ID do paciente em: " + arquivo.getName());
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+/*
     public static List<Usuario> carregarTodosUsuarios() {
         List<Usuario> usuariosCarregados = new ArrayList<>();
 
         // Carregar médicos
-        File medicosDir = new File(MEDICOS_DIR);
+        File medicosDir = new File(MEDICOS_PASTA);
         if (medicosDir.exists() && medicosDir.isDirectory()) {
             File[] arquivosMedicos = medicosDir.listFiles((dir, name) -> name.endsWith(".txt"));
             if (arquivosMedicos != null) {
@@ -121,7 +177,7 @@ public class LerArquivo {
         }
 
         // Carregar pacientes
-        File pacientesDir = new File(PACIENTES_DIR);
+        File pacientesDir = new File(PACIENTES_PASTA);
         if (pacientesDir.exists() && pacientesDir.isDirectory()) {
             File[] arquivosPacientes = pacientesDir.listFiles((dir, name) -> name.endsWith(".txt"));
             if (arquivosPacientes != null) {
@@ -147,5 +203,5 @@ public class LerArquivo {
         }
         return usuariosCarregados;
     }
-     */
+ */
 }

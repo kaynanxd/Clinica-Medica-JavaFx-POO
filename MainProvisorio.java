@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,12 +22,11 @@ public class MainProvisorio {
                 case 1:
                     realizarLogin();
                     if (usuarioLogado != null) {
-                        if (usuarioLogado instanceof UsuarioMedico) {
-                            menuMedico((UsuarioMedico) usuarioLogado);
-                        } else if (usuarioLogado instanceof UsuarioPaciente) {
-                            menuPaciente((UsuarioPaciente) usuarioLogado);
+                        if (usuarioLogado instanceof UsuarioMedico medico) {
+                            menuMedico(medico);
+                        } else if (usuarioLogado instanceof UsuarioPaciente paciente) {
+                            menuPaciente(paciente);
                         }
-                        // Após sair do menu específico, limpa o usuário logado
                         usuarioLogado = null;
                     }
                     break;
@@ -55,7 +55,7 @@ public class MainProvisorio {
         if (usuario != null) {
             System.out.println("\n>> Login realizado com sucesso! <<");
             System.out.println("Bem-vindo(a), " + usuario.getNome() + "!");
-            usuarioLogado = usuario; // Salva o usuário logado na memória
+            usuarioLogado = usuario;
         } else {
             System.out.println("\n>> Credenciais inválidas! <<");
         }
@@ -64,186 +64,178 @@ public class MainProvisorio {
     private static void criarNovoUsuario() {
         Usuario novoUsuario = null;
         int tipoUsuarioNum = InputGerenciador.lerInteiro("Deseja criar um usuário [1] Médico ou [2] Paciente? ");
-
         String nome = InputGerenciador.lerString("Digite o nome do usuário: ");
         String senha = InputGerenciador.lerString("Digite a senha do usuário: ");
 
         switch (tipoUsuarioNum) {
-            case 1:
-                System.out.println("\n--- Informações para o Novo Médico ---");
+            case 1 -> {
                 String especialidade = InputGerenciador.lerString("Digite a especialidade do médico: ");
-                List<String> planosSaude = InputGerenciador.lerLista(
-                        "Digite os planos de saúde que o médico atende (separados por vírgula, ex: Unimed,Pix): ",
-                        ","
-                );
-                novoUsuario = UsuarioFactory.criarMedico(senha, nome, especialidade, planosSaude);
-                break;
-            case 2:
-                System.out.println("\n--- Informações para o Novo Paciente ---");
+                List<String> planos = InputGerenciador.lerLista(
+                        "Digite os planos de saúde atendidos (ex: Unimed,Amil): ", ",");
+                novoUsuario = UsuarioFactory.criarMedico(senha, nome, especialidade, planos);
+            }
+            case 2 -> {
                 int idade = InputGerenciador.lerInteiro("Digite a idade do paciente: ");
-                String planoSaudePaciente = InputGerenciador.lerString("Digite o plano de saúde do paciente ou 'Sem' caso nao tenha: ");
-                novoUsuario = UsuarioFactory.criarPaciente(senha, nome, idade, planoSaudePaciente);
-                break;
-            default:
-                System.out.println("Tipo de usuário inválido. A criação do usuário foi cancelada.");
-                break;
+                String plano = InputGerenciador.lerString("Digite o plano de saúde ou 'Sem': ");
+                novoUsuario = UsuarioFactory.criarPaciente(senha, nome, idade, plano);
+            }
+            default -> {
+                System.out.println("Tipo de usuário inválido.");
+                return;
+            }
         }
 
         if (novoUsuario != null) {
-            System.out.println("\n--- Usuário Criado ---");
-            System.out.println("ID: " + novoUsuario.getId());
-            System.out.println("Nome: " + novoUsuario.getNome());
-            System.out.println("Tipo: " + novoUsuario.getTipoUsuario());
-
-            if (novoUsuario instanceof UsuarioMedico) {
-                UsuarioMedico medico = (UsuarioMedico) novoUsuario;
-                System.out.println("Especialidade: " + medico.getEspecialidade());
-                System.out.println("Planos: " + medico.getPlanosSaudeAtendidos());
-            } else if (novoUsuario instanceof UsuarioPaciente) {
-                UsuarioPaciente paciente = (UsuarioPaciente) novoUsuario;
-                System.out.println("Idade: " + paciente.getIdade());
-                System.out.println("Plano de Saúde: " + paciente.getPlanoSaude());
-            }
             EscreverArquivo.escreverDadosUsuario(novoUsuario);
-            System.out.println("Usuário salvo com sucesso!");
+            System.out.println("Usuário criado com sucesso!");
         }
     }
 
-    // --- Menus Pós-Login ---
-
     private static void menuMedico(UsuarioMedico medico) {
-        System.out.println("\n=== Menu do Médico: " + medico.getNome() + " (ID: " + medico.getId() + ") ===");
+        RealizarConsulta realizador = new RealizarConsulta(medico);
         int opcao;
         do {
-            System.out.println("1. Alterar Meus Dados"); // Já implementado
-            System.out.println("2. Visualizar Meus Agendamentos"); // Para Implementar
-            System.out.println("3. Realizar Consulta"); // Para Implementar
-            System.out.println("0. Fazer Logout");
+            System.out.println("\n=== Menu do Médico " + medico.getNome() + " ===");
+            System.out.println("1. Alterar Meus Dados");
+            System.out.println("2. Visualizar Meus Agendamentos");
+            System.out.println("3. Realizar Consulta");
+            System.out.println("0. Logout");
             opcao = InputGerenciador.lerInteiro("Escolha uma opção: ");
 
             switch (opcao) {
-                case 1:
-                    alterarDadosUsuarioLogado(medico);
-                    break;
-                case 2:
-                    System.out.println("Funcionalidade de visualizar agendamentos em desenvolvimento.");
-                    break;
-                case 3:
-                    //Implementar: Realizar Consulta
-                    // Médico informa descrição (sintomas, tratamento, medicamentos, exames...).
-                    // Lógica para gerar conta se paciente não tiver plano.
-                    System.out.println("Funcionalidade de realizar consulta em desenvolvimento.");
-                    break;
-                case 0:
-                    System.out.println("Fazendo logout do Dr. " + medico.getNome() + ".");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                case 1 -> alterarDadosUsuarioLogado(medico);
+                case 2 -> realizador.visualizarConsultas();
+                case 3 -> {
+                    realizador.visualizarConsultas();
+                    String data = InputGerenciador.lerString("Data (dd/MM/yyyy): ");
+                    String hora = InputGerenciador.lerString("Horário (HH:mm): ");
+                    String idPaciente = InputGerenciador.lerString("ID do paciente: ");
+                    String sintomas = InputGerenciador.lerString("Sintomas: ");
+                    String tratamento = InputGerenciador.lerString("Tratamento sugerido: ");
+                    String exames = InputGerenciador.lerString("Exames: ");
+                    String medicamentos = InputGerenciador.lerString("Medicamentos: ");
+                    realizador.realizarConsulta(data, hora, idPaciente, sintomas, tratamento, exames, medicamentos);
+                }
+                case 0 -> System.out.println("Logout realizado.");
+                default -> System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
     }
 
     private static void menuPaciente(UsuarioPaciente paciente) {
-        System.out.println("\n=== Menu do Paciente: " + paciente.getNome() + " (ID: " + paciente.getId() + ") ===");
+        AgendadordeConsulta agendador = new AgendadordeConsulta(paciente);
+        Avaliacao avaliador = new Avaliacao(paciente);
         int opcao;
         do {
-            System.out.println("1. Alterar Meus Dados"); // Já implementado
-            System.out.println("2. Buscar e Visualizar Médicos"); // Para Implementar
-            System.out.println("3. Agendar Consulta"); // Para Implementar
-            System.out.println("4. Cancelar Agendamento"); // Para Implementar
-            System.out.println("5. Avaliar Consulta"); // Para Implementar
-            System.out.println("0. Fazer Logout");
+            System.out.println("\n=== Menu do Paciente " + paciente.getNome() + " ===");
+            System.out.println("1. Alterar Meus Dados");
+            System.out.println("2. Buscar Médicos");
+            System.out.println("3. Agendar Consulta");
+            System.out.println("4. Cancelar Consulta");
+            System.out.println("5. Avaliar Consulta");
+            System.out.println("0. Logout");
             opcao = InputGerenciador.lerInteiro("Escolha uma opção: ");
 
             switch (opcao) {
-                case 1:
-                    alterarDadosUsuarioLogado(paciente);
-                    break;
-                case 2:
-                    //Implementar: Buscar e Visualizar Médicos
-                    // O paciente deve poder pesquisar médicos por nome/especialidade.
-                    // O sistema deve mostrar nome, especialidade, estrelas e últimas avaliações.
-                    // Regra: Mostrar apenas médicos que atendem ao plano do paciente; se sem plano, mostra todos.
-                    System.out.println("Funcionalidade de buscar e visualizar médicos em desenvolvimento.");
-                    break;
-                case 3:
-                    // Implementar: Agendar Consulta
-                    // Selecionar médico e data.
-                    // Regra: Médico atende até 3 por dia; se lotado, vai para lista de espera.
-                    // Isso envolve a criação de objetos de Agendamento e gerenciamento de horários.
-                    System.out.println("Funcionalidade de agendar consulta em desenvolvimento.");
-                    break;
-                case 4:
-                    // Implementar: Cancelar Agendamento
-                    // Regra: Se houver lista de espera, aloca o próximo da lista.
-                    System.out.println("Funcionalidade de cancelar agendamento em desenvolvimento.");
-                    break;
-                case 5:
-                    // Implementar: Avaliar Consulta
-                    // Após uma consulta, o paciente pode dar estrelas (1-5) e um texto.
-                    // A avaliação deve ser associada a uma consulta já realizada.
-                    System.out.println("Funcionalidade de avaliar consulta em desenvolvimento.");
-                    break;
-                case 0:
-                    System.out.println("Fazendo logout do paciente " + paciente.getNome() + ".");
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
+                case 1 -> alterarDadosUsuarioLogado(paciente);
+                case 2 -> agendador.exibirMedicos();
+                case 3 -> {
+                    agendador.exibirMedicos();
+                    String nomeMedico = InputGerenciador.lerString("Nome do médico: ");
+
+                    List<LocalDate> datasDisponiveis = agendador.obterDatasDisponiveis();
+                    System.out.println("Datas disponíveis:");
+                    for (int i = 0; i < datasDisponiveis.size(); i++) {
+                        System.out.println((i + 1) + " - " + datasDisponiveis.get(i));
+                    }
+
+                    int opcaoData = InputGerenciador.lerInteiro("Escolha a data (1 a " + datasDisponiveis.size() + "): ");
+                    if (opcaoData < 1 || opcaoData > datasDisponiveis.size()) {
+                        System.out.println("Opção de data inválida.");
+                        return;
+                    }
+                    LocalDate dataEscolhida = datasDisponiveis.get(opcaoData - 1);
+
+                    List<LocalTime> horariosDisponiveis = agendador.obterHorariosDisponiveis(nomeMedico, dataEscolhida);
+                    if (horariosDisponiveis.isEmpty()) {
+                        System.out.println("Todos os horários estão ocupados. Você será adicionado à lista de espera.");
+                        agendador.agendarConsulta(nomeMedico, opcaoData, 0); // 0 como código especial para lista de espera
+                        return;
+                    }
+
+                    System.out.println("Horários disponíveis:");
+                    for (int i = 0; i < horariosDisponiveis.size(); i++) {
+                        System.out.println((i + 1) + " - " + horariosDisponiveis.get(i));
+                    }
+
+                    int opcaoHora = InputGerenciador.lerInteiro("Escolha o horário (1 a " + horariosDisponiveis.size() + "): ");
+                    if (opcaoHora < 1 || opcaoHora > horariosDisponiveis.size()) {
+                        System.out.println("Opção de horário inválida.");
+                        return;
+                    }
+
+                    agendador.agendarConsulta(nomeMedico, opcaoData, opcaoHora);
+                }
+                case 4 -> {
+                    System.out.println("Consultas agendadas:");
+                    avaliador.visualizarConsultas();
+                    String data = InputGerenciador.lerString("Data (dd/MM/yyyy): ");
+                    String hora = InputGerenciador.lerString("Horário (HH:mm): ");
+                    String nomeMedico = InputGerenciador.lerString("Nome do médico: ");
+                    agendador.cancelarConsulta(data, hora, nomeMedico);
+                }
+                case 5 -> {
+                    System.out.println("Consultas agendadas:");
+                    avaliador.visualizarConsultas();
+                    String data = InputGerenciador.lerString("Data (dd/MM/yyyy): ");
+                    String hora = InputGerenciador.lerString("Horário (HH:mm): ");
+                    String nomeMedico = InputGerenciador.lerString("Nome do médico: ");
+                    String texto = InputGerenciador.lerString("Escreva sua avaliação: ");
+                    double estrelas = InputGerenciador.lerInteiro("Quantas estrelas (1 a 5): ");
+                    avaliador.avaliarConsulta(data, hora, nomeMedico, texto, estrelas);
+                }
+                case 0 -> System.out.println("Logout realizado.");
+                default -> System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
     }
 
-    private static void alterarDadosUsuarioLogado(Usuario usuarioParaAlterar) {
-        System.out.println("\n--- Alterar Meus Dados ---");
+    private static void alterarDadosUsuarioLogado(Usuario usuario) {
+        String novoNome = InputGerenciador.lerString("Novo nome (Enter para manter '" + usuario.getNome() + "'): ");
+        if (!novoNome.isEmpty()) usuario.setNome(novoNome);
 
-        System.out.println("ID: " + usuarioParaAlterar.getId());
-        System.out.println("Nome atual: " + usuarioParaAlterar.getNome());
-        System.out.println("Senha atual: " + usuarioParaAlterar.getSenha());
+        String novaSenha = InputGerenciador.lerString("Nova senha (Enter para manter a atual): ");
+        if (!novaSenha.isEmpty()) usuario.setSenha(novaSenha);
 
-        String novoNome = InputGerenciador.lerString("Novo nome (deixe em branco para manter '" + usuarioParaAlterar.getNome() + "'): ");
-        if (!novoNome.isEmpty()) {
-            usuarioParaAlterar.setNome(novoNome);
-        }
-        String novaSenha = InputGerenciador.lerString("Nova senha (deixe em branco para manter a atual): ");
-        if (!novaSenha.isEmpty()) {
-            usuarioParaAlterar.setSenha(novaSenha);
-        }
+        if (usuario instanceof UsuarioMedico medico) {
+            String novaEsp = InputGerenciador.lerString("Nova especialidade (Enter p/ manter '" + medico.getEspecialidade() + "'): ");
+            if (!novaEsp.isEmpty()) medico.setEspecialidade(novaEsp);
 
-        if (usuarioParaAlterar instanceof UsuarioMedico) {
-            UsuarioMedico medico = (UsuarioMedico) usuarioParaAlterar;
-            System.out.println("Especialidade atual: " + medico.getEspecialidade());
-            String novaEspecialidade = InputGerenciador.lerString("Nova especialidade (deixe em branco para manter '" + medico.getEspecialidade() + "'): ");
-            if (!novaEspecialidade.isEmpty()) {
-                medico.setEspecialidade(novaEspecialidade);
+            String novosPlanos = InputGerenciador.lerString("Novos planos (separados por vírgula, Enter para manter): ");
+            if (!novosPlanos.isEmpty()) {
+                List<String> planos = Arrays.asList(novosPlanos.split(",")).stream().map(String::trim).toList();
+                medico.setPlanosSaudeAtendidos(planos);
             }
-            String planosAtuais = String.join(",", medico.getPlanosSaudeAtendidos());
-            String novosPlanosStr = InputGerenciador.lerString("Novos planos de saúde (separados por vírgula, deixe em branco para manter '" + planosAtuais + "'): ");
-            if (!novosPlanosStr.isEmpty()) {
-                List<String> novosPlanos = Arrays.asList(novosPlanosStr.split(",")).stream().map(String::trim).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-                medico.setPlanosSaudeAtendidos(novosPlanos);
-            }
-            EscreverArquivo.escreverDadosUsuario(medico); // Salva o objeto médico atualizado
-            System.out.println("Dados do médico atualizados e salvos com sucesso!");
 
-        } else if (usuarioParaAlterar instanceof UsuarioPaciente) {
-            UsuarioPaciente paciente = (UsuarioPaciente) usuarioParaAlterar;
-            System.out.println("Idade atual: " + paciente.getIdade());
-            System.out.println("Plano de Saúde atual: " + paciente.getPlanoSaude());
+            EscreverArquivo.escreverDadosUsuario(medico);
+            System.out.println("Dados do médico atualizados!");
+        }
 
-            String novaIdadeStr = InputGerenciador.lerString("Nova idade (deixe em branco para manter '" + paciente.getIdade() + "'): ");
+        if (usuario instanceof UsuarioPaciente paciente) {
+            String novaIdadeStr = InputGerenciador.lerString("Nova idade (Enter para manter): ");
             if (!novaIdadeStr.isEmpty()) {
                 try {
                     paciente.setIdade(Integer.parseInt(novaIdadeStr));
                 } catch (NumberFormatException e) {
-                    System.out.println("Idade inválida. Idade não foi alterada.");
+                    System.out.println("Idade inválida.");
                 }
             }
-            String novoPlanoSaude = InputGerenciador.lerString("Novo plano de saúde (deixe em branco para manter '" + paciente.getPlanoSaude() + "'): ");
-            if (!novoPlanoSaude.isEmpty()) {
-                paciente.setPlanoSaude(novoPlanoSaude);
-            }
+
+            String novoPlano = InputGerenciador.lerString("Novo plano de saúde (Enter para manter): ");
+            if (!novoPlano.isEmpty()) paciente.setPlanoSaude(novoPlano);
+
             EscreverArquivo.escreverDadosUsuario(paciente);
-            System.out.println("Dados do paciente atualizados e salvos com sucesso!");
+            System.out.println("Dados do paciente atualizados!");
         }
     }
 }

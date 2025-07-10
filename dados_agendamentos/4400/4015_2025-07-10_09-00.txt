@@ -1,0 +1,4 @@
+Médico: kaynan (ID: 4400)
+Paciente: miguel (ID: 4015)
+Data: 10/07/2025
+Hora: 09:00

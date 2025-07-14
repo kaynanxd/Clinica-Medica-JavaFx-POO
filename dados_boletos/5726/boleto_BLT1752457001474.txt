@@ -1,0 +1,8 @@
+=== BOLETO MÉDICO ===
+Código: BLT1752457001474
+Valor: R$280,00
+Vencimento: 20/07/2025
+Paciente ID: 5726
+Médico: 1
+Especialidade: pediatria
+Status: PAGO

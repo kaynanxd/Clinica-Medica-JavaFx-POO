@@ -1,0 +1,5 @@
+Paciente: 2 (ID: 5726)
+Status: REALIZADA
+Hora: 12:00
+Médico: 1 (ID: 2122)
+Data: 15/07/2025

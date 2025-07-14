@@ -1,0 +1,1 @@
+Coloque aqui os JARs do ZXing (core-3.5.3.jar e javase-3.5.3.jar)

@@ -1,0 +1,8 @@
+Paciente: 2 (ID: 5726)
+Médico: 1
+Data: 15/07/2025
+Hora: 12:00
+Sintomas: asdadsad
+Tratamento: asd
+Exames: ads
+Medicamentos: dasd

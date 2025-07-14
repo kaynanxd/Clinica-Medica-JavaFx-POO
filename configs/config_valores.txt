@@ -1,0 +1,5 @@
+cardiologia=350.00
+ortopedia=300.00
+dermatologia=250.00
+pediatria=280.00
+clinico=180.00

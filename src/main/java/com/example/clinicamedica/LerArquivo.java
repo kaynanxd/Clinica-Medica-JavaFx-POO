@@ -20,6 +20,8 @@ public class LerArquivo {
     private LerArquivo() {
     }
 
+
+
     public static Map<String, String> lerCamposDoArquivo(String filePath) {
         Map<String, String> campos = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

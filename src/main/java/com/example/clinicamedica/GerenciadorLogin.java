@@ -1,6 +1,19 @@
 package com.example.clinicamedica;
 
+
+
 public class GerenciadorLogin {
+
+    private static GerenciadorLogin instancia;
+
+    public static synchronized GerenciadorLogin getInstancia() {
+        if (instancia == null) {
+            instancia = new GerenciadorLogin();
+        }
+        return instancia;
+    }
+
+
 
     public Usuario verificarCredenciais(String identificador, String senha) {
         Usuario usuarioEncontrado = null;
@@ -27,7 +40,7 @@ public class GerenciadorLogin {
             }
 
         } catch (NumberFormatException e) {
-            // a execução continua para a busca por nome.
+            // agora busca pelo nome
         }
 
         // Tenta buscar por Nome
@@ -48,7 +61,6 @@ public class GerenciadorLogin {
                 return null;
             }
         }
-        // Se chegou até aqui, o usuário não foi encontrado
         return null;
     }
 }

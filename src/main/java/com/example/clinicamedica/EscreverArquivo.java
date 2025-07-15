@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class EscreverArquivo {
 
+
     private static final String BASE_PASTA = "dados_usuarios";
     private static final String MEDICOS_PASTA = BASE_PASTA  + "/medicos";
     private static final String PACIENTES_PASTA = BASE_PASTA  + "/pacientes";

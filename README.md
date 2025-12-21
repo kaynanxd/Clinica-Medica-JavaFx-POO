@@ -1,0 +1,98 @@
+# 🏥 Sistema de Gestão de Clínica Médica (JavaFX)
+
+> **Disciplina:** Programação Orientada a Objetos (POO)  
+> **Instituição:** Universidade Estadual do Ceará (UECE)  
+> **Tecnologia:** Java + JavaFX
+
+---
+
+## 📄 Sobre o Projeto
+
+Este projeto consiste em um sistema desktop completo para o gerenciamento de uma clínica médica. Desenvolvido inteiramente em **Java** utilizando a biblioteca gráfica **JavaFX**, o software foi criado como requisito avaliativo da cadeira de Programação Orientada a Objetos.
+
+O objetivo principal foi aplicar os pilares da POO (Encapsulamento, Herança, Polimorfismo e Abstração) na construção de uma solução real que permite o agendamento de consultas e o gerenciamento de pacientes e médicos.
+
+---
+
+## 📸 Galeria do Sistema
+
+Abaixo estão algumas capturas de tela das principais funcionalidades da aplicação:
+
+| | | |
+|:---:|:---:|:---:|
+| ![Tela de Login](Screenshots/1.png) | ![Dashboard Principal](Screenshots/2.png) | ![Cadastro de Paciente](Screenshots/3.png) |
+| ![Agendamento de Consulta](Screenshots/4.png) | ![Lista de Médicos](Screenshots/5.png) | ![Prontuário Médico](Screenshots/6.png) |
+| ![Tela de Edição](Screenshots/7.png) | ![Histórico de Consultas](Screenshots/8.png) | ![Relatórios](Screenshots/9.png) |
+| ![Tela de Edição2](Screenshots/10.png) | ![Histórico de Consultas3](Screenshots/11.png) | ![Relatórios4](Screenshots/12.png) |
+
+---
+
+## 🛠️ Funcionalidades
+
+O sistema possui diferentes níveis de acesso e funcionalidades:
+
+### 👨‍⚕️ Módulo Médico
+* Visualização da agenda diária e semanal.
+* Acesso ao prontuário eletrônico do paciente.
+* Registro de diagnósticos e prescrições.
+
+### 👤 Módulo Paciente
+* Cadastro e atualização de dados pessoais.
+* Histórico de consultas realizadas.
+* Visualização de receitas médicas.
+
+### ⚙️ Módulo Administrativo (Secretaria)
+* **CRUD Completo:** Médicos, Pacientes e Especialidades.
+* **Agendamento:** Marcação, reagendamento e cancelamento de consultas.
+* Gerenciamento de disponibilidade de horários.
+
+---
+
+## 💻 Tecnologias e Ferramentas
+
+* **Linguagem:** Java (OpenJDK 25)
+* **Interface Gráfica:** JavaFX
+* **IDE:** IntelliJ IDEA
+* **Gerenciamento de Dependências:** (Maven ou Gradle - *Escolha um*)
+* **Persistência de Dados:** (Ex: Arquivos Binários / SQLite / MySQL - *Edite aqui*)
+
+---
+
+## 📚 Conceitos de POO Aplicados
+
+Durante o desenvolvimento, foram utilizados os seguintes conceitos acadêmicos:
+
+1.  **Herança:** Utilizada para criar hierarquias de usuários (`Pessoa` -> `Medico`, `Paciente`).
+2.  **Polimorfismo:** Implementado nas interfaces de repositório e tratamento de diferentes tipos de consulta.
+3.  **Encapsulamento:** Proteção dos atributos das classes de domínio (Models) através de métodos Getters e Setters.
+4.  **Tratamento de Exceções:** Uso de `try-catch` para garantir que o sistema não feche abruptamente em caso de erros de entrada ou banco de dados.
+5.  **Interface Gráfica (MVC):** Separação lógica entre a interface (`.fxml`), o controle (`Controller`) e os dados (`Model`).
+
+---
+
+## 🚀 Como Executar o Projeto
+
+### Pré-requisitos
+* Java JDK 17 ou superior (Recomendado JDK 25).
+* IntelliJ IDEA (ou outra IDE compatível).
+
+### Passo a Passo
+1.  Clone este repositório:
+    ```bash
+    git clone [https://github.com/seu-usuario/clinica-medica-javafx.git](https://github.com/seu-usuario/clinica-medica-javafx.git)
+    ```
+2.  Abra o projeto no IntelliJ IDEA.
+3.  Aguarde o download das dependências (Maven/Gradle).
+4.  Localize a classe `Launcher.java` (ou `Main.java`) dentro do pacote principal.
+5.  Execute o método `main`.
+
+---
+
+## 👨‍💻 Autores
+
+* **Seu Nome** - *Desenvolvedor Principal* - [GitHub](https://github.com/seu-usuario)
+* **(Opcional) Nome do Colega** - *Colaborador*
+
+---
+
+*Desenvolvido com ☕ e Java na UECE.*

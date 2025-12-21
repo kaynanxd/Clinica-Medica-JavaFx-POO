@@ -20,10 +20,10 @@ Abaixo estão algumas capturas de tela das principais funcionalidades da aplica�
 
 | | | |
 |:---:|:---:|:---:|
-| ![Tela de Login](Screenshots/1.png) | ![Dashboard Principal](Screenshots/2.png) | ![Cadastro de Paciente](Screenshots/3.png) |
-| ![Agendamento de Consulta](Screenshots/4.png) | ![Lista de Médicos](Screenshots/5.png) | ![Prontuário Médico](Screenshots/6.png) |
-| ![Tela de Edição](Screenshots/7.png) | ![Histórico de Consultas](Screenshots/8.png) | ![Relatórios](Screenshots/9.png) |
-| ![Tela de Edição2](Screenshots/10.png) | ![Histórico de Consultas3](Screenshots/11.png) | ![Relatórios4](Screenshots/12.png) |
+| ![Tela de Login](screenshots/1.png) | ![Dashboard Principal](screenshots/2.png) | ![Cadastro de Paciente](screenshots/3.png) |
+| ![Agendamento de Consulta](screenshots/4.png) | ![Lista de Médicos](screenshots/5.png) | ![Prontuário Médico](screenshots/6.png) |
+| ![Tela de Edição](screenshots/7.png) | ![Histórico de Consultas](screenshots/8.png) | ![Relatórios](screenshots/9.png) |
+| ![Tela de Edição2](screenshots/10.png) | ![Histórico de Consultas3](screenshots/11.png) | ![Relatórios4](screenshots/12.png) |
 
 ---
 

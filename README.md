@@ -23,7 +23,6 @@ Abaixo estão algumas capturas de tela das principais funcionalidades da aplica�
 | ![Tela de Login](screenshots/1.png) | ![Dashboard Principal](screenshots/2.png) | ![Cadastro de Paciente](screenshots/3.png) |
 | ![Agendamento de Consulta](screenshots/4.png) | ![Lista de Médicos](screenshots/5.png) | ![Prontuário Médico](screenshots/6.png) |
 | ![Tela de Edição](screenshots/7.png) | ![Histórico de Consultas](screenshots/8.png) | ![Relatórios](screenshots/9.png) |
-| ![Tela de Edição2](screenshots/10.png) | ![Histórico de Consultas3](screenshots/11.png) | ![Relatórios4](screenshots/12.png) |
 
 ---
 
@@ -82,7 +81,7 @@ Durante o desenvolvimento, foram utilizados os seguintes conceitos acadêmicos:
     git clone [https://github.com/seu-usuario/clinica-medica-javafx.git](https://github.com/seu-usuario/clinica-medica-javafx.git)
     ```
 2.  Abra o projeto no IntelliJ IDEA.
-3.  Aguarde o download das dependências (Maven/Gradle).
+3.  selecione o java jdk 24 e isntale a lib do open javafx, junto com as 2 libs javase e core que estao na pasta out.
 4.  Localize a classe `Launcher.java` (ou `Main.java`) dentro do pacote principal.
 5.  Execute o método `main`.
 
@@ -90,8 +89,8 @@ Durante o desenvolvimento, foram utilizados os seguintes conceitos acadêmicos:
 
 ## 👨‍💻 Autores
 
-* **Seu Nome** - *Desenvolvedor Principal* - [GitHub](https://github.com/seu-usuario)
-* **(Opcional) Nome do Colega** - *Colaborador*
+* **kaynan santos** 
+* **ana beatriz duarte** 
 
 ---
 

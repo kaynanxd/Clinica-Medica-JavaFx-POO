@@ -78,12 +78,9 @@ Durante o desenvolvimento, foram utilizados os seguintes conceitos acadêmicos:
 
 ### Passo a Passo
 1.  Clone este repositório:
-    ```bash
-    git clone [https://github.com/seu-usuario/clinica-medica-javafx.git](https://github.com/seu-usuario/clinica-medica-javafx.git)
-    ```
 2.  Abra o projeto no IntelliJ IDEA.
 3.  selecione o java jdk 24 e isntale a lib do open javafx, junto com as 2 libs javase e core que estao na pasta out.
-4.  Localize a classe `Launcher.java` (ou `Main.java`) dentro do pacote principal.
+4.  Localize a classe Main.java dentro do pacote principal.
 5.  Execute o método `main`.
 
 ---

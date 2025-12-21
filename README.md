@@ -23,6 +23,7 @@ Abaixo estão algumas capturas de tela das principais funcionalidades da aplica�
 | ![Tela de Login](screenshots/1.png) | ![Dashboard Principal](screenshots/2.png) | ![Cadastro de Paciente](screenshots/3.png) |
 | ![Agendamento de Consulta](screenshots/4.png) | ![Lista de Médicos](screenshots/5.png) | ![Prontuário Médico](screenshots/6.png) |
 | ![Tela de Edição](screenshots/7.png) | ![Histórico de Consultas](screenshots/8.png) | ![Relatórios](screenshots/9.png) |
+| ![Tela de Edição](screenshots/10.png) | ![Histórico de Consultas](screenshots/11.png) |
 
 ---
 
